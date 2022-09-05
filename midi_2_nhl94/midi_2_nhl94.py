@@ -32,6 +32,21 @@ def get_integer_value():
         print(f"{user_value} is not a valid integer. Please try again.")
     return get_integer_value()
 
+def get_integer_list() -> list[str]: #requires python 3.9
+    """
+    docstring here
+    """
+    result = []
+    user_input = input()
+    ids = user_input.split(',')
+    for s in ids:
+        try:
+            result.append(int(s))
+        except ValueError:
+            print(f"{s} is not a valid integer. Please try again.")
+            return []
+    return result
+
 def export_tracks( track_nums : list, tracks : list ):
     """
     docstring here
@@ -114,6 +129,6 @@ for iTrack in range(0, len(mido.tracks)):
             pass
     print(str(iTrack) + " | '" + track.name + "' (" + str(numNotes) + " notes)")
 
-print ("Choose a track to export to .csv:")
-trackNum = get_integer_value()
-export_tracks([trackNum], mido.tracks)
+print ("Choose track to export to .csv (e.g., "4" or "1,3,5":")
+trackNums = get_integer_list()
+export_tracks(trackNums, mido.tracks)
